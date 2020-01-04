@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysql-server-5.7:
+    image: phosfato/mysql-server-5.7
+
+  php7.2-fpm:
+    build: .
+    links:
+      - mysql-server-5.7:mysql-server
+    volumes:
+      - ./fpm-php.ini:/etc/php/7.2/fpm/php.ini
+      - ./cli-php.ini:/etc/php/7.2/cli/php.ini
+      - magento2:/var/www/magento2
+
+  nginx-light:
+    image: phosfato/nginx-light
+    ports:
+      - '8080:80'
+    links:
+      - php7.2-fpm:php
+    volumes:
+    - ./default:/etc/nginx/sites-available/default
+    - magento2:/var/www/magento2
+volumes:
+  magento2:
