@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   mysql-server-5.7:
     image: phosfato/mysql-server-5.7
@@ -21,5 +22,6 @@ services:
     volumes:
     - ./default:/etc/nginx/sites-available/default
     - magento2:/var/www/magento2
+
 volumes:
   magento2:
